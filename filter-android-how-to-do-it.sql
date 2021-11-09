@@ -1,5 +1,5 @@
   -- Params:
-  -- - {{database}}: Database to be used on table creation (here using "android")
+  -- - {{database}}: Database to be used on table creation
 
 -- [Create Posts Questions Table] (Main query)
 CREATE OR REPLACE TABLE
