@@ -60,15 +60,12 @@ FROM (
   INNER JOIN
     android_how_to_questions Q
   ON
-    (T.tag_name IN UNNEST(SPLIT(Q.tags, '|')))
-  ORDER BY
-    TTU.
-  OFFSET
-    ASC,
-    Q.view_count DESC ) T
+    (T.tag_name IN UNNEST(SPLIT(Q.tags, '|')))) T
 WHERE
   `question_view_count_rank` <= 100
-  AND `total_valid_questions` >= 100;
+  AND `total_valid_questions` >= 100
+ORDER BY
+  tag_offset ASC, question_view_count_rank ASC;
 
 
 -- [Create Posts Answers Table]
