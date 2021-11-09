@@ -1,6 +1,6 @@
 -- Top tags by average questions view count for the top 100
 -- Params:
--- - {{database}}: Database to be used on table creation
+-- - {{database}}: Database to be used
 
 SELECT
   T.id,
