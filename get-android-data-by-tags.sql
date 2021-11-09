@@ -144,4 +144,18 @@ WHERE
   FROM
     sequences
   CROSS JOIN
-    UNNEST(sequences.tags) AS flattened_tags)
+    UNNEST(sequences.tags) AS flattened_tags);
+
+-- [Create Posts Tag Wiki Table]
+CREATE OR REPLACE TABLE
+  `{{database}}.posts_tag_wiki` AS
+SELECT
+  PTW.*
+FROM
+  `bigquery-public-data.stackoverflow.posts_tag_wiki` PTW
+WHERE
+  PTW.id IN (
+  SELECT
+    wiki_post_id
+  FROM
+    `{{database}}.tags`);
