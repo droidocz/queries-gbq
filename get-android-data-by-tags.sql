@@ -149,12 +149,11 @@ WHERE
 -- [Create Selected Tags Table]
 CREATE OR REPLACE TABLE `android_by_tags.selected_tags` AS
 SELECT 
-  T.*
+  T.id, T.tag_name, T.count, T.excerpt_post_id, T.wiki_post_id, PQ.tag_offset
 FROM 
   `bigquery-public-data.stackoverflow.tags` T
-WHERE
-  T.id IN (
-    SELECT tag_id FROM `android_by_tags.posts_questions`);
+INNER JOIN `android_by_tags.posts_questions` PQ ON (T.id = PQ.tag_id)
+GROUP BY T.id, T.tag_name, T.count, T.excerpt_post_id, T.wiki_post_id, PQ.tag_offset;
 
 
 -- [Create Posts Tag Wiki Table]
