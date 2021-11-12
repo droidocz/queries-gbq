@@ -145,6 +145,17 @@ WHERE
     sequences
   CROSS JOIN
     UNNEST(sequences.tags) AS flattened_tags);
+    
+-- [Create Selected Tags Table]
+CREATE OR REPLACE TABLE `android_by_tags.selected_tags` AS
+SELECT 
+  T.*
+FROM 
+  `bigquery-public-data.stackoverflow.tags` T
+WHERE
+  T.id IN (
+    SELECT tag_id FROM `android_by_tags.posts_questions`);
+
 
 -- [Create Posts Tag Wiki Table]
 CREATE OR REPLACE TABLE
