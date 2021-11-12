@@ -1,5 +1,6 @@
 -- Get Top 100 questions and their data for each of the specified tags
 -- Params:
+-- - {{main_tag}}: Main tag to use (e.g.: 'android')
 -- - {{tags}}: Tags to filter (e.g.: ['android-layout', 'android-activity', 'android-intent', 'android-edittext', 'android-fragments', 'android-recyclerview', 'listview', 'android-actionbar', 'google-maps', 'android-asynctask'])
 -- - {{database}}: Database to be used on table creation (e.g.: android_by_tags)
 CREATE OR REPLACE TABLE
@@ -23,7 +24,7 @@ WITH
   FROM
     `bigquery-public-data.stackoverflow.posts_questions` PQ
   WHERE
-    'android' IN UNNEST(SPLIT(PQ.tags, "|")) -- only with actual tag android
+    {{main_tag}} IN UNNEST(SPLIT(PQ.tags, "|")) -- only with actual tag android
     AND (PQ.title LIKE '%how%'
       OR PQ.body LIKE '%how%') -- it has "how" in the title or body
     AND (PQ.body NOT LIKE '%fail%'
