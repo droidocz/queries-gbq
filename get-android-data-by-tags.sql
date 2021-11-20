@@ -170,3 +170,17 @@ WHERE
     wiki_post_id
   FROM
     `{{database}}.tags`);
+    
+-- [Create Posts Tag Wiki Excerpt Table]
+CREATE OR REPLACE TABLE
+  `{{database}}.posts_tag_wiki_excerpt` AS
+SELECT
+  PTWE.*
+FROM
+  `bigquery-public-data.stackoverflow.posts_tag_wiki_excerpt` PTWE
+WHERE
+  PTWE.id IN (
+  SELECT
+    excerpt_post_id
+  FROM
+    `{{database}}.tags`);
